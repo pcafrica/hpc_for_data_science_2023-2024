@@ -33,3 +33,10 @@ Unless otherwise specified, all content here is licensed under a
 # Timetable
 | Date            | Time          | Room | Topic                                                                                                        |
 | --------------- | ------------- | ---- | ------------------------------------------------------------------------------------------------------------ |
+| Mon 22 Apr 2024 | 14:00 - 16:00 | TBA  | TBA |
+| Tue 23 Apr 2024 | 14:00 - 16:00 | TBA  | TBA |
+| Wed 24 Apr 2024 | 10:00 - 12:00 | TBA  | TBA |
+| Mon 29 Apr 2024 | 14:00 - 16:00 | TBA  | TBA |
+| Tue 30 Apr 2024 | 14:00 - 16:00 | TBA  | TBA |
+| Mon 06 May 2024 | 14:00 - 17:00 | TBA  | TBA |
+| Tue 07 May 2024 | 14:00 - 17:00 | TBA  | TBA |
