@@ -75,14 +75,13 @@ These books provide in-depth coverage of the course material and can serve as va
 
 # Extra info
 
-To participate in this course, students will be requested to bring their own laptop equipped with a working Linux or UNIX environment, whether standalone or virtualized. Students are expected to utilize either a text editor, such as Emacs, Vim, or Nano, or an Integrated Development Environment (IDE), such as VSCode, Eclipse, or Code::Blocks, according to their preference.
+To participate in this course, students will be requested to bring their own laptop equipped with a working Linux or UNIX environment, whether standalone or virtualized. Students are expected to utilize either a text editor, such as Emacs, Vim, or Nano, or, preferably, an Integrated Development Environment (IDE), such as VSCode, Eclipse, or Spyder, according to their preference.
 
-To ensure that their environment is suitable for the course, students should ensure that it meets the following requirements:
+To ensure that their system is suitable for the course, students should ensure that it meets the following requirements.
 
-The environment must have a C++ compiler installed with full support for C++17, such as GCC 10 or newer, or Clang 11 or newer.
-
-The environment must have Python 3 installed. The presence of Jupyter is recommended, but not mandatory.
-
-The environment must meet the minimum system requirements for running a Linux or Unix environment with the necessary software and tools for the course.
+- The environment must have Python 3 installed. The presence of Jupyter and conda is recommended.
+- The environment must have a C++ compiler installed with full support for C++17, such as GCC 10 or newer, or Clang 11 or newer. The presence of CMake is recommended.
 
 Any recent Linux distribution, such as Ubuntu 22.04 or newer, or Debian 11 or newer, or macOS system that meets these requirements should be suitable for the course.
+
+Windows users may consider installing [Windows Subsystem for Linux](https://learn.microsoft.com/en-us/windows/wsl/install).
