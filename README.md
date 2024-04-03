@@ -39,4 +39,4 @@ Unless otherwise specified, all content here is licensed under a
 | Mon 29 Apr 2024 | 14:00 - 16:00 | TBA  | Lecture (TBA) |
 | Tue 30 Apr 2024 | 14:00 - 16:00 | TBA  | Lecture (TBA) |
 | Mon 06 May 2024 | 14:00 - 17:00 | TBA  | Exercise session (TBA) |
-| Tue 07 May 2024 | 14:00 - 17:00 | TBA  | Exercise session (TBA) |
+| Wed 08 May 2024 | 14:00 - 17:00 | TBA  | Exercise session (TBA) |
