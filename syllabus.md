@@ -75,6 +75,8 @@ These books provide in-depth coverage of the course material and can serve as va
 
 # Extra info
 
+Students are required to have an active SISSA account enabled for the use of Ulysses. Please refer to the following links for further instructions: https://www.itcs.sissa.it/services/computing/hpc, https://ulysses.readthedocs.io/.
+
 To participate in this course, students will be requested to bring their own laptop equipped with a working Linux or UNIX environment, whether standalone or virtualized. Students are expected to utilize either a text editor, such as Emacs, Vim, or Nano, or, preferably, an Integrated Development Environment (IDE), such as VSCode, Eclipse, or Spyder, according to their preference.
 
 To ensure that their system is suitable for the course, students should ensure that it meets the following requirements.
