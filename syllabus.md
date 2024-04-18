@@ -79,10 +79,11 @@ Students are required to have an active SISSA account enabled for the use of Uly
 
 To participate in this course, students will be requested to bring their own laptop equipped with a working Linux or UNIX environment, whether standalone or virtualized. Students are expected to utilize either a text editor, such as Emacs, Vim, or Nano, or, preferably, an Integrated Development Environment (IDE), such as VSCode, Eclipse, or Spyder, according to their preference.
 
-To ensure that their system is suitable for the course, students should ensure that it meets the following requirements.
+To ensure that their system is suitable for the course, students should verify that the following software is installed.
 
-- The environment must have Python 3 installed. The presence of Jupyter and conda is recommended.
-- The environment must have a C++ compiler installed with full support for C++17, such as GCC 10 or newer, or Clang 11 or newer. The presence of CMake is recommended.
+- Python 3. The presence of Jupyter and conda is recommended.
+- A C++ compiler installed with full support for C++17, such as GCC 10 or newer, or Clang 11 or newer. The presence of CMake is recommended.
+- [Docker Desktop](https://www.docker.com/products/docker-desktop/). Please follow the instruction on the [official guide](https://docs.docker.com/get-docker/) and the [post-installation steps](https://docs.docker.com/engine/install/linux-postinstall/) thoroughly.
 
 Any recent Linux distribution, such as Ubuntu 22.04 or newer, or Debian 11 or newer, or macOS system that meets these requirements should be suitable for the course.
 
