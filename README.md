@@ -33,7 +33,7 @@ Unless otherwise specified, all content here is licensed under a
 # Timetable
 | Date            | Time          | Room | Topic                                                                                                        |
 | --------------- | ------------- | ---- | ------------------------------------------------------------------------------------------------------------ |
-| Mon 22 Apr 2024 | 14:00 - 16:00 | 003  | Lecture (TBA) |
+| Mon 22 Apr 2024 | 14:00 - 16:00 | 003  | Introduction to the course. The UNIX shell. The build process. Unix. Python environments. Git |
 | Tue 23 Apr 2024 | 14:00 - 16:00 | 003  | Lecture (TBA) |
 | Wed 24 Apr 2024 | 10:00 - 12:00 | 003  | Exercise session (TBA) |
 | Mon 29 Apr 2024 | 14:00 - 16:00 | 003  | Lecture (TBA) |

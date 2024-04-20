@@ -26,17 +26,17 @@ jobs:
           output: index.html
           github-corners: https://github.com/pcafrica/hpc_for_data_science_2023-2024
 
-      - name: Build lectures HTML
+      - name: Build slides HTML
         uses: docker://marpteam/marp-cli:latest
         with:
-          args: --bespoke.progress --theme style/custom.css --html -I lectures/ -o lectures/
+          args: --bespoke.progress --theme style/custom.css --html -I slides/ -o slides/
         env:
           MARP_USER: root:root
 
-      - name: Build lectures PDF
+      - name: Build slides PDF
         uses: docker://marpteam/marp-cli:latest
         with:
-          args: --bespoke.progress --theme style/custom.css --html -I lectures/ -o lectures/ --pdf --pdf-outlines
+          args: --bespoke.progress --theme style/custom.css --html -I slides/ -o slides/ --pdf --pdf-outlines
         env:
           MARP_USER: root:root
 
