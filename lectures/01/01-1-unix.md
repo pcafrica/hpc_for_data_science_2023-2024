@@ -58,6 +58,8 @@ Speaking of computing resources:
 Here are a few other tips and tricks:
 - `cat FILE [FILE2 ...]` to just display one or many files;
 - `tail -f FILE` to monitor a file that is being continuously updated (e.g. the redirected output of a script);
+- `history` will show you your previous commands. In a command, `!N` is replaced by the `N`th command from history, so you can easily re-run it; `!!` is replaced by the last command;
+- `grep PATTERN FILE` can be used to filter `FILE` for lines [containing `PATTERN`](https://phoenixnap.com/kb/grep-regex)—or the output of other commands, if used with a [pipe](https://www.geeksforgeeks.org/piping-in-unix-or-linux/): `COMMAND | grep ...`;
 - `nohup COMMAND ... > OUTPUT_FILE &` to run a process in the background (the `&` at the end is important) so that it isn't terminated when you [hang up](https://www.youtube.com/watch?v=EDwb9jOVRtU) (log out / exit the terminal). The output is redirected to `OUTPUT_FILE`. The enthusiasts are invited to explore [more complicated patterns](https://www.redhat.com/sysadmin/redirect-shell-command-script-output) to e.g. separate `stdout` and `stderr` into different files.
 - to interrupt a running program: `Ctrl+c`;
 - to end a Unix session: `exit`, `logout`, or `Ctrl+d` (`EOF`: end-of-file);
@@ -73,5 +75,5 @@ In Python, environment variables can be accessed and manipulated through [`os.en
 Here are some important environment variables:
 - `HOME`: the "home/user" directory of the current user;
 - `PATH`: the collection of folders where the shell searches for executables. This is relevant when you install packages and will usually be managed by a package manager;
-- `PYTHON_PATH`: the collection of folders where Python looks for importable packages (in addition to the current working directory);
+- `PYTHONPATH`: the collection of folders where Python looks for importable packages (in addition to the current working directory and defaults);
 - `SLURM_...`: [define](https://slurm.schedmd.com/sbatch.html#SECTION_INPUT-ENVIRONMENT-VARIABLES) / [describe](https://slurm.schedmd.com/sbatch.html#SECTION_OUTPUT-ENVIRONMENT-VARIABLES) the distributed computing environment of a SLURM job (will be discussed later).

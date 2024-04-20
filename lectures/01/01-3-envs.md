@@ -117,8 +117,10 @@ An environment can be
 > [!WARNING]
 > Conda environments do not inherit (I think), i.e. each is independent, hence, bulky. Use them sparingly. Note also that [Mamba obligates you to not use `base`](https://mamba.readthedocs.io/en/latest/user_guide/troubleshooting.html#no-other-packages-should-be-installed-to-base) (the the Mamba solver doesn't have this restriction).
 
-[^conda-env]: The active environent is indicated with an `(ENV)` prefix to the command-line prompt. 
+[^conda-env]: The active environent is indicated with an `(ENV)` prefix to the command-line prompt.
 
 #### Closing remarks on Conda
-- You *can* use [PIP within a Conda environment](https://www.anaconda.com/blog/using-pip-in-a-conda-environment) (but only do this for packages that are not otherwise available)!
+- A particular advantage of Conda over more manual / less integrated approaches to installing a ML stack is that it can handle GPU-related software like Nvidia's CUDA (toolkit), which is e.g. required by PyTorch: if installing it by PIP, you'll need to satisfy this requirement in some other way.
+- You *can* still use [PIP within a Conda environment](https://www.anaconda.com/blog/using-pip-in-a-conda-environment) (but only do this for packages that are not otherwise available)!
 - [`conda list`](https://conda.io/projects/conda/en/latest/commands/list.html) will [show you what you've got](https://www.youtube.com/watch?v=Ga8zpMMCD98).
+- [`conda search PATTERN`](https://conda.io/projects/conda/en/latest/commands/search.html) will search for `PATTERN` (see the examples in the link), returning all available versions from all configured channels. Or you could use [the internet](https://anaconda.org/).
