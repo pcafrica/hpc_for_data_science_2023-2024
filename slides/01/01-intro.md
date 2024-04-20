@@ -8,7 +8,7 @@ _class: titlepage
 # Lecture 01
 <br>
 
-## A Day in the Life of a Software Developer
+## A day in the life of a software developer
 <br>
 
 #### High Performance Computing for Data Science - SISSA, UniTS, 2023-2024
@@ -149,6 +149,8 @@ Source: https://pypl.github.io/PYPL.html
    - Local vs. remote.
    - Branching and collaborative working.
    - Sync the course material with your computer.
+4. Python environments:
+   - TODO
 
 ---
 
@@ -581,6 +583,18 @@ Before every lecture, download the latest updates by running:
 git pull origin main
 ```
 from inside the cloned folder.
+
+---
+
+<!--
+_class: titlepage
+-->
+
+# Python environments
+
+---
+
+TODO
 
 ---
 
