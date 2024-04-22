@@ -21,7 +21,7 @@ _class: titlepage
 
 # Outline
 
-1. The Python ecosystem
+1. The role of Python in modern scientific computing
 2. Dependency management
 3. GitHub
 4. Unit testing
@@ -33,7 +33,23 @@ _class: titlepage
 _class: titlepage
 -->
 
-# The Python ecosystem
+# The role of Python in modern scientific computing
+
+---
+
+# The role of Python in modern scientific computing
+
+Python has emerged as a pivotal language in scientific computing, distinguished by:
+
+- Intuitive and readable syntax, making coding accessible to scientists from various fields.
+- A vast array of libraries and tools tailored for scientific applications.
+
+Python's versatility extends across numerous scientific domains:
+
+- In physics, it's used for simulations and theoretical calculations.
+- In biology and chemistry, Python aids in molecular modeling and genomic data analysis.
+- Its application in astronomy includes data processing from telescopes and space missions.
+- In environmental science, it's pivotal in climate modeling and biodiversity studies.
 
 ---
 
@@ -60,19 +76,6 @@ Python's impact in scientific research is evident through numerous real-world ap
 - In astronomy, it played a key role in processing the first image of a black hole.
 
 These applications underscore Python's versatility and effectiveness in advancing scientific knowledge.
-
----
-
-# Setting up a Python environment
-
-To work with Python, you need to set up a development environment.
-
-Here are the basic steps:
-
-- **Install Python:** Download and install Python (version $\geq 3$) from the official [Python website](https://www.python.org/). Advanced users may want to have a look at [PyPy](https://www.pypy.org/).
-- **Integrated Development Environment (IDE):** Choose an IDE such as PyCharm, VSCode, or Jupyter Notebook for a more interactive development experience. You can even use online platforms like [Google Colab](https://colab.google/) and [JupyterLab](https://jupyter.org/try).
-- **Package management:** Utilize tools like `pip` to install and manage third-party packages.
-- (Advanced users) **Virtual environments:** Use virtual environments, such as [conda](https://conda.io/projects/conda/en/latest/user-guide/install/index.html) to isolate project dependencies and avoid conflicts between different projects.
 
 ---
 
