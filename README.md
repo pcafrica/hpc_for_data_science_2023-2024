@@ -27,10 +27,10 @@ Unless otherwise specified, all content here is licensed under a
 
 # Links and resources
 - [Course material](https://pcafrica.github.io/hpc_for_data_science_2023-2024/).
+- [Zoom link for remote attendance](https://sissa-it.zoom.us/j/4643932469)
 
 ---
 
-# Timetable
 # Timetable
 | &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Date&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; | &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Time&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; | Room&nbsp;&nbsp;&nbsp;&nbsp; | Topic |
 | --------------- | ------------- | ---- | ------------------------------------------------------------------------------------------------------------ |
