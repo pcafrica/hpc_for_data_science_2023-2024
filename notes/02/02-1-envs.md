@@ -12,7 +12,7 @@ In the world of open source, software packages form an entangled ~~mess~~ ecosys
 > [!TIP]
 > See also the pretty good [Python Packaging User Guide](https://packaging.python.org/en/latest/).
 
-[PIP](https://pip.pypa.io/en/stable/) is the Package Installer for Python that usually comes bundled with the interpreter. By default, it taps into the [Python Package Index (PyPI)](https://pypi.org/)—a repository to which *anyone* can submit a package: in fact, *you* will be asked to do this very soon!—but can also be used to install local packages (and their dependencies).
+[PIP](https://pip.pypa.io/en/stable/) is the Package Installer for Python that usually comes bundled with the interpreter. By default, it taps into the [Cheeseshop](https://pypi.org/)[^cheese]—a repository to which *anyone* can submit a package: in fact, *you* will be asked to do this very soon!—but can also be used to install local packages (and their dependencies).
 
 The basic usage is
 - `pip install PACKAGE` and its dependencies.
@@ -42,6 +42,8 @@ If you wish to install your own package[^release]—or at any rate, a package th
 
 For completeness, to uninstall a package, simply ask:
 - `pip uninstall PACKAGE` by name.
+
+[^cheese]: [I kid you not](https://wiki.python.org/moin/CheeseShop), this is an official codename for the Python Packaging Index (PyPI)...
 
 [^global]: Bad idea: shared / global Pythons are usually old and come with an undefined ~~mess~~ environment of already installed packages, some of which may be vital to the overall operation of the system... Better to install your own from scratch using e.g. Conda or [`pyenv`](https://github.com/pyenv/pyenv). I'd like to warn you though that choosing a Python version is a wedding: in that if you want a newer spouse, e.g. to enjoy some newer features, you'll need to reinstall everything from scratch (and will probably lose half your stuff in the process). None of the package managers discussed below can help you with that. The only one I've seen pull it off is [Arch Linux's Pacman](https://wiki.archlinux.org/title/python#Installation). On the other hand, Conda, `pyenv`, and `virtualenv` do support *multiple Python versions at the same time* (in different environments), but that's [cheating](https://en.wikipedia.org/wiki/Thou_shalt_not_commit_adultery).
 
