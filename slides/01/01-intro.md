@@ -537,6 +537,8 @@ If you have to work on the same files, the best practice is to create a new `bra
 - `git checkout` switches to a specific commit or brach.
 - `git stash` temporarily hides all the modified tracked files.
 
+An excellent visual cheatsheet can be found [here](https://ndpsoftware.com/git-cheatsheet.html).
+
 ---
 
 # SSH authentication
