@@ -689,4 +689,4 @@ After resolving the conflict, commit your changes and push your resolution to th
 _class: titlepage
 -->
 
-# <alert>:warning: Warning:</alert><br>Please get your laptop ready by Wednesday!
+# <alert>:warning: Warning:</alert><br>Please get your laptop and your Ulysses account ready by Wednesday!
