@@ -33,7 +33,7 @@
 `pyproject.toml` is a [TOML](https://toml.io/) file that you include in the root of your Python *project* to describe it. It contains multiple *tables* of metadata:
 
 ### [`[build-system]`](https://packaging.python.org/en/latest/guides/writing-pyproject-toml/#declaring-the-build-backend)
-tells Pip[^installer] what tool to use to *build* the project. As such, the packages listed here are not required for *running* your software, so they may not be installed if the package manager finds a suitable pre-built [*wheel*](#wheels). In this guide, we'll focus on setuptools:
+tells Pip[^installer] what tool to use to *build* the project. As such, the packages listed here are not required for *running* your software, so they may not be installed if the package manager finds a suitable pre-built [*wheel*](#wheels).[^reinvent] In this guide, we'll focus on setuptools:
 ```toml
 [build-system]
   requires = ["setuptools"]
@@ -74,6 +74,8 @@ Project metadata:
       The package manager will install these only if requested through "`PACKAGE[EXTRA_NAME]`": for example, "`magic[black]`" (supposing there's a perfectly usable package of non-black `magic`).
 
 [^installer]: or whatever other package manager you're using...
+
+[^reinvern]: Do not re-invent them! (unless you really enjoy coding)
 
 #### Versioning
 
