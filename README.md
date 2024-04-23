@@ -27,7 +27,7 @@ Unless otherwise specified, all content here is licensed under a
 
 # Links and resources
 - [Course material](https://pcafrica.github.io/hpc_for_data_science_2023-2024/).
-- [Zoom link for remote attendance](https://sissa-it.zoom.us/j/4643932469)
+- [Zoom link for remote attendance](https://sissa-it.zoom.us/j/4643932469).
 
 ---
 
