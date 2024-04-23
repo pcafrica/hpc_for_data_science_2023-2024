@@ -356,7 +356,7 @@ _class: titlepage
 _class: titlepage
 -->
 
-# Dependency management.
+# Dependency management
 
 ---
 
@@ -809,6 +809,6 @@ jobs:
 
 # Additional resources
 
+- Testing and documenting Python code: see lecture notes.
 - [Productivity tools](https://aaltoscicomp.github.io/python-for-scicomp/productivity/).
-- [Unit testing in Python](https://pytest-with-eric.com/comparisons/pytest-vs-unittest/).
-- Documenting Python code: see Konstantin's notes.
+- More about [unit testing in Python](https://pytest-with-eric.com/comparisons/pytest-vs-unittest/).
