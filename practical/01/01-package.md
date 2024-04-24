@@ -100,3 +100,9 @@ _class: titlepage
 2. **Publish on Test PyPI**:
    - Configure a proper `pyproject.toml` file for distribution.
    - Run `python -m twine upload --repository testpypi dist/*` to upload the package.
+
+---
+
+# Solution
+
+See https://github.com/pcafrica/python_package_example/.
