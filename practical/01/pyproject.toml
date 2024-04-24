@@ -1,0 +1,29 @@
+[build-system]
+requires = ["setuptools"]
+build-backend = "setuptools.build_meta"
+
+
+[project]
+name = "diagme"
+description = "Does a small thing"
+authors = [
+    {name = "YOU!", email = "you@hotmail.com"},
+    {name = "ChatGPT"}
+]
+readme = "README.md"
+license = {text = "GPLv3"}
+
+version = "0.42"
+
+requires-python = ">=3.10"
+
+dependencies = ["numpy"]
+
+
+[project.optional-dependencies]
+matteo = ["sphinx"]
+test = ["pytest", "hypothesis"]
+
+[tool.setuptools.packages.find]
+where = ["src"]
+exclude = ["diagme.diagyou"]
