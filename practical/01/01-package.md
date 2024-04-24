@@ -76,8 +76,8 @@ _class: titlepage
 2. **Commit and push your changes**:
    - Add your changes using `git add .`
    - Commit the changes with `git commit -m "Initial commit"`
-   - Link your local repository to GitHub with `git remote add origin [Your-Repository-URL]`.
-   - Push your commits with `git push -u origin master`.
+   - Link your local repository to GitHub with `git remote add origin [your-repository-url]`.
+   - Push your commits with `git push -u origin main`.
 
 ---
 
@@ -98,5 +98,5 @@ _class: titlepage
    - Push tags with `git push --tags`.
 
 2. **Publish on Test PyPI**:
-   - Configure a proper `setup.py` file for distribution.
+   - Configure a proper `pyproject.toml` file for distribution.
    - Run `python -m twine upload --repository testpypi dist/*` to upload the package.
