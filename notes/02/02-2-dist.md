@@ -118,7 +118,7 @@ You'd probably want to specify [which files get packaged](https://setuptools.pyp
   include = ["GLOB", ...]
   exclude = ["GLOB", ...]
   ```
-  where the `GLOB` patterns indicate the packages (directories) to include/exclude, along with all modules (`.py` files) within them. If you use the "`src`" layout, include a `where = "src"` entry (by default, it's the *project* root, i.e. `"."`).
+  where the `GLOB` patterns indicate the packages (directories) to include/exclude, along with all modules (`.py` files) within them. If you use the "`src`" layout, include a `where = ["src"]` entry (by default, it's the *project* root, i.e. `"."`).
 - or [data files](https://setuptools.pypa.io/en/latest/userguide/datafiles.html): e.g. containing saved arrays or [images of pasta](https://github.com/LR-inaf/pasta-marker/tree/main)[^pasta]. By default, *all* files within declared (or discovered) packages are included in the distribution, *if they're tracked by Git and `setuptools_scm` is used*... Again, for the control freaks:
   ```toml
   [tool.setuptools.package-data]
