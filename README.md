@@ -37,7 +37,7 @@ Unless otherwise specified, all content here is licensed under a
 | Mon 22 Apr 2024 | 14:00 - 16:00 | 003  | A day in the life of a software developer. [[Markdown](slides/01/01-intro.md)] [[HTML](https://pcafrica.github.io/hpc_for_data_science_2023-2024/slides/01/01-intro.html)] [[PDF](https://pcafrica.github.io/hpc_for_data_science_2023-2024/slides/01/01-intro.pdf)] |
 | Tue 23 Apr 2024 | 14:00 - 16:00 | 003  | A hitchhiker's guide to coding. [[Markdown](slides/02/02-coding.md)] [[HTML](https://pcafrica.github.io/hpc_for_data_science_2023-2024/slides/02/02-coding.html)] [[PDF](https://pcafrica.github.io/hpc_for_data_science_2023-2024/slides/02/02-coding.pdf)] |
 | Wed 24 Apr 2024 | 10:00 - 12:00 | 003  | Look ma, I've published a package! [[Markdown](practical/01/01-package.md)] [[HTML](https://pcafrica.github.io/hpc_for_data_science_2023-2024/practical/01/01-package.html)] [[PDF](https://pcafrica.github.io/hpc_for_data_science_2023-2024/practical/01/01-package.pdf)] |
-| Mon 29 Apr 2024 | 14:00 - 16:00 | 003  | Lecture (TBA) |
+| Mon 29 Apr 2024 | 14:00 - 16:00 | 003  | Fast and curious [[Markdown](slides/03/03-parallel.md)] [[HTML](https://pcafrica.github.io/hpc_for_data_science_2023-2024/slides/03/03-parallel.html)] [[PDF](https://pcafrica.github.io/hpc_for_data_science_2023-2024/slides/03/03-parallel.pdf)] |
 | Tue 30 Apr 2024 | 14:00 - 16:00 | 003  | Lecture (TBA) |
 | Wed 08 May 2024 | 14:00 - 17:00 | 003  | Practical session (TBA) |
 | Thu 09 May 2024 | 14:00 - 17:00 | 003  | Practical session (TBA) |
