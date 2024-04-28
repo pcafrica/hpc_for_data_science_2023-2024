@@ -24,7 +24,6 @@ _class: titlepage
 1. Scientific data types
 2. Profiling and optimizing
 3. Performance boosting
-4. Parallel computing
 
 Part of these notes is re-adapted from [this lecture](https://enccs.github.io/hpda-python/) and [this lecture](https://aaltoscicomp.github.io/python-for-scicomp/) ([license](LICENSE_CC-BY-4.0.md)).
 
