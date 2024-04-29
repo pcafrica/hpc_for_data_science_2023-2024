@@ -657,7 +657,7 @@ Collective communication routines in MPI not only facilitate data distribution b
 
 The `Gather` operation collects data from all processes in the communicator and delivers it to a single designated process (root).
 
-![MPI Gather](images/mpi-gather.png)
+![](images/mpi-gather.png)
 
 ---
 
