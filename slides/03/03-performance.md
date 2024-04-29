@@ -355,11 +355,11 @@ data = np.random.random((4000,100))
 %timeit linalg.svd(data)
 # 1.03 s ± 24.9 ms per loop (mean ± std. dev. of 7 runs, 1 loop each)
 
-%timeit linalg.svd(data, full_matrices=False)
-# 21.2 ms ± 716 µs per loop (mean ± std. dev. of 7 runs, 10 loops each)
-
 %timeit np.linalg.svd(data, full_matrices=False)
 # 23.8 ms ± 3.06 ms per loop (mean ± std. dev. of 7 runs, 10 loops each)
+
+%timeit linalg.svd(data, full_matrices=False)
+# 21.2 ms ± 716 µs per loop (mean ± std. dev. of 7 runs, 10 loops each)
 ```
 
 ---
@@ -626,12 +626,7 @@ Cython is a Python dialect that allows C function calls and type declarations on
 
 # Demo: integrating a function in Cython
 
-Consider a basic Python function designed to compute an integral $\int_a^b f(x) \mathrm{d}\,x$, such as the one implemented [here](https://github.com/ENCCS/hpda-python/blob/main/content/example/integrate.py):
-
-```python
-def integrate_function(a, b, N):
-    # Python code for numerical integration.
-```
+Consider a basic Python function designed to compute an integral $\int_a^b f(x) \mathrm{d}\,x$, such as the one implemented [here](https://github.com/ENCCS/hpda-python/blob/main/content/example/integrate.py).
 
 This function, when applied to data columns within a DataFrame, can be timed for execution performance:
 
@@ -640,8 +635,8 @@ import numpy as np
 import pandas as pd
 
 df = pd.DataFrame({"a": np.random.randn(1000),
-          "b": np.random.randn(1000),
-          "N": np.random.randint(100, 1000, (1000))})                
+                   "b": np.random.randn(1000),
+                   "N": np.random.randint(100, 1000, (1000))})
 
 %timeit apply_integrate_f(df['a'], df['b'], df['N'])
 # 321 ms ± 10.7 ms per loop (mean ± std. dev. of 7 runs, 1 loop each)
@@ -746,7 +741,7 @@ def apply_integrate_f_numba(col_a, col_b, col_N):
         res[i] = integrate_f_numba(col_a[i], col_b[i], col_N[i])
     return res
     
-# Yry passing Pandas Series.
+# Try passing Pandas Series.
 %timeit apply_integrate_f_numba(df['a'],df['b'],df['N'])
 # 6.02 ms ± 56.5 µs per loop (mean ± std. dev. of 7 runs, 1 loop each)
 
