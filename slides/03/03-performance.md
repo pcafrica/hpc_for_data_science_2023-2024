@@ -43,7 +43,6 @@ _class: titlepage
 
 - Gain insights into various scientific data formats.
 - Identify common issues when managing large datasets.
-- Master the NetCDF format with Xarray.
 - Evaluate the advantages and drawbacks of open science.
 - Understand how to obtain a DOI for datasets or projects.
 
@@ -78,7 +77,7 @@ Initially, the ASCII (American Standard Code for Information Interchange) system
 
 In scientific applications, data tends to be complex and structured, often incorporating both numerical and textual information. Here we'll explore some common data and file storage formats used in the scientific community.
 
-## Tabular Data
+## Tabular data
 
 Tabular data, organized into named columns and rows, is a prevalent data type. Each row represents a distinct data sample, and columns are often labeled with names and specific data types. The most straightforward and widely used format for saving tabular data is the CSV (comma-separated values) file.
 
@@ -152,7 +151,7 @@ The principles of Findability, Accessibility, Interoperability, and Reusability 
 
 ## Obtaining a DOI for your project
 
-You can make your git repository citable by archiving it on services like [Zenodo](https://zenodo.org/), [Figshare](https://figshare.com/), and many more, which assign a DOI (Digital Object Identifier) to your project, enhancing its visibility and traceability.
+You can make your git repository or data archive **citable** by archiving it on services like [Zenodo](https://zenodo.org/), [Figshare](https://figshare.com/), and many more, which assign a DOI (Digital Object Identifier) to your project, enhancing its visibility and traceability.
 
 ---
 
@@ -185,7 +184,7 @@ Python’s built-in data structures like lists and dictionaries are highly flexi
 
 ---
 
-# Python lists vs NumPy arrays
+# Python lists vs. NumPy arrays
 ![w:1200](images/list-vs-array.svg)
 
 ---
@@ -194,7 +193,7 @@ Python’s built-in data structures like lists and dictionaries are highly flexi
 
 Once your code is working reliably, you can start thinking about optimizing it.
 
-> **Warning:** Always measure the code before you start optimization. Don't base your optimization on theoretical considerations, otherwise you might be surprised.
+> <alert>Warning:</alert> Always measure the code before you start optimization. Don't base your optimization on theoretical considerations, otherwise you might be surprised.
 
 Profiling is a key technique in software development used to analyze a program's execution to identify resource-intensive parts. It aids in pinpointing performance bottlenecks and provides insights into the runtime behavior of code components. Profiling involves various tools that measure aspects such as execution time, function call frequency, and resource usage. This process helps developers focus their optimization efforts effectively, enhancing the performance and efficiency of applications, especially in complex systems where issues may not be immediately obvious.
 
@@ -437,7 +436,7 @@ x = np.ones(10000, dtype=np.int8)
 f_numpy(x, x)
 ```
 ```python
-import numba # More about Numba in the next episode!
+import numba # More about Numba later!
 
 @numba.vectorize
 def f(x, y):
@@ -532,15 +531,16 @@ a[:, None] + b # Or: a[:, np.newaxis] + b
 <div>
 
 ```python
-c = np.zeros((10000, 10000), order='C')
+# A matrix stored row-wise.
+A = np.zeros((10000, 10000), order='C')
 
-%timeit c.sum(axis=0)
+%timeit A.sum(axis=0)
 # 1 loops, best of 3: 3.89 s per loop
 
-%timeit c.sum(axis=1)
+%timeit A.sum(axis=1)
 # 1 loops, best of 3: 188 ms per loop
 
-c.strides
+A.strides
 # (80000, 8)
 ```
 
