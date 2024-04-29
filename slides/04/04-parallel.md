@@ -46,7 +46,7 @@ Do you realize that you need more computational power than a single processor ca
 1. Profile your application to pinpoint the actual performance bottlenecks.
 2. Is it possible to optimize these slow areas? Could you integrate an existing library to help?
 3. Are there straightforward optimizations that could be implemented with minimal effort?
-4. Consider using tools like numba or cython to speed up critical functions.
+4. Consider using tools like Numba or Cython to speed up critical functions.
 5. Explore options for parallelizing your code.
 
 In scientific computing, there is often a need to parallelize code, either because running computations on a single core takes too long or because certain hardware (like supercomputers) requires code to be parallelized to operate.
@@ -139,7 +139,7 @@ Setting these variables forces NumPy to perform operations using only one thread
 
 From https://realpython.com/, distributed via a Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported licence.
 
-The `threading` library provides an API for creating and working with threads. The simplest approach to create and manage threads is to use the ThreadPoolExecutor class.
+The `threading` library provides an API for creating and working with threads. The simplest approach to create and manage threads is to use the `ThreadPoolExecutor` class.
 
 ---
 
@@ -184,10 +184,10 @@ def square(x):
     return x * x
 
 if __name__ == '__main__':
-    nprocs = mp.cpu_count()  # Number of CPU cores
+    nprocs = mp.cpu_count()  # Number of CPU cores.
     print(f"Number of CPU cores: {nprocs}")
 
-    # Using a context manager to manage Pool resources
+    # Using a context manager to manage Pool resources.
     with mp.Pool(processes=nprocs) as pool:
         result = pool.map(square, range(20))
     print(result)
@@ -208,7 +208,7 @@ def power_n(x, n):
     return x ** n
 
 if __name__ == '__main__':
-    nprocs = mp.cpu_count()  # Number of CPU cores
+    nprocs = mp.cpu_count()  # Number of CPU cores.
     print(f"Number of CPU cores: {nprocs}")
 
     with mp.Pool(processes=nprocs) as pool:
@@ -222,11 +222,9 @@ This example computes the power of numbers from 0 to 19 raised to the second pow
 
 # Interactive environments and limitations
 
-In interactive environments like Jupyter, the `multiprocessing.Pool` might not function as expected because the `__main__` module needs to be importable by child processes. A fork of multiprocessing, called multiprocess, is recommended for use in such environments.
+In interactive environments like Jupyter, the `multiprocessing.Pool` might not function as expected because the `__main__` module needs to be importable by child processes. A fork of `multiprocessing`, called `multiprocess`, is recommended for use in such environments. All we have to do is install it by pip install `multiprocess` and change the import statement: `from multiprocess import Pool`.
 
-The multiprocessing module also includes other functionalities like `Process` and `Queue`, which offer more control over individual processes.
-
-Fortunately, there is a fork of `multiprocesssing` called `multiprocess` which does work in interactive environments. All we have to do is install it by pip install `multiprocess` and change the import statement: `from multiprocess import Pool`.
+The `multiprocessing` module also includes other functionalities like `Process` and `Queue`, which offer more control over individual processes.
 
 ---
 
@@ -269,11 +267,11 @@ Each process in an MPI program is assigned a unique identifier known as a *rank*
 
 ```python
 if rank == 0:
-    # Task for rank 0
+    # Task for rank 0.
 elif rank == 1:
-    # Task for rank 1
+    # Task for rank 1.
 else:
-    # Tasks for all other ranks
+    # Tasks for all other ranks.
 ```
 
 ---
@@ -293,13 +291,14 @@ A *communicator* in MPI is a group of processes that can interact with each othe
 For anyone beginning with MPI, understanding how to query the number of processes and their ranks is essential. These are typically done using `Get_size()` and `Get_rank()` methods of a communicator:
 
 ```python
+# hello.py
 from mpi4py import MPI
 
 comm = MPI.COMM_WORLD  # Global communicator
 size = comm.Get_size()  # Number of processes
 rank = comm.Get_rank()  # Unique identifier for this process
 
-print(f"I am rank {rank} in a group of {size} processes")
+print(f"I am rank {rank} in a group of {size} processes.")
 ```
 
 ---
@@ -311,10 +310,10 @@ An MPI program is initiated using a launcher like `mpirun` or `mpiexec`, specify
 ```bash
 mpirun -np 4 python3 hello.py
 
-I am rank 2 in group of 4 processes
-I am rank 0 in group of 4 processes
-I am rank 3 in group of 4 processes
-I am rank 1 in group of 4 processes
+I am rank 2 in group of 4 processes.
+I am rank 0 in group of 4 processes.
+I am rank 3 in group of 4 processes.
+I am rank 1 in group of 4 processes.
 ```
 
 ---
@@ -341,9 +340,9 @@ rank = comm.Get_rank()
 
 if rank == 0:
     data = {'a': 7, 'b': 3.14}
-    comm.send(data, dest=1)
+    comm.send(data, dest=1, tag=0)
 elif rank == 1:
-    data = comm.recv(source=0)
+    data = comm.recv(source=0, tag=0)
 ```
 
 ---
@@ -352,8 +351,8 @@ elif rank == 1:
 
 In MPI with Python, you can use `send()` and `recv()` methods from a communicator to exchange Python objects that are serializable via [pickle](https://docs.python.org/3/library/pickle.html). This includes most Python standard and derived objects.
 
-- `.send(data, dest)`: Sends `data` to the process with rank `dest`.
-- `.recv(source)`: Receives data from the process with rank `source`. The data is returned as the function's result.
+- `send(data, dest, tag)`: Sends `data` to the process with rank `dest` with a given `tag`.
+- `recv(source, tag)`: Receives data with tag `tag` from the process with rank `source`. The data is returned as the function's result.
 
 These operations are **blocking**; they do not complete until it's safe to use the involved memory, necessitating successful coordination with the matching operation in the other process. Mismanagement can lead to deadlocks, where processes wait indefinitely for each other to send or receive data.
 
@@ -378,7 +377,7 @@ The efficient communication of large arrays, such as NumPy arrays, utilizes rout
 
 # Sending and receiving arrays
 
-Using the upper case `Send()` and `Recv()` methods allows for direct memory copying, which is significantly faster for large data transfers.
+Using the upper case `Send()` and `Recv()` methods allows for direct memory copying, which is significantly faster for large data transfers. This works for *buffer*-like data, like strings and NumPy arrays.
 
 Example of sending a NumPy array:
 
@@ -450,8 +449,8 @@ MPI offers non-blocking communication routines that allow communication to occur
 
 ## Key concepts
 
-- **Non-blocking Methods**: Functions like `isend`, `irecv`, `Isend`, etc., start communication but return immediately, letting the program continue while the operation completes in the background.
-- **Request Objects**: Non-blocking calls return a `Request` object, which is used to manage and check the status of the ongoing communication.
+- **Non-blocking methods**: Functions like `isend`, `irecv`, `Isend`, etc., start communication but return immediately, letting the program continue while the operation completes in the background.
+- **Request objects**: Non-blocking calls return a `Request` object, which is used to manage and check the status of the ongoing communication.
 
 ---
 
@@ -478,13 +477,13 @@ size = comm.Get_size()
 
 if rank == 0:
     data = numpy.arange(size, dtype=float) * (rank + 1)
-    req = comm.Isend(data, dest=1)
+    req = comm.Isend(data, dest=1, tag=0)
     # Other computations can be done here.
     req.wait()  # Wait for the send to complete.
 
 elif rank == 1:
     data = numpy.empty(size, dtype=float)
-    req = comm.Irecv(data, source=0)
+    req = comm.Irecv(data, source=0, tag=0)
     # Other computations can be done here.
     req.wait()  # Wait for the receive to complete.
 ```
@@ -509,7 +508,7 @@ src = rank - 1 if rank > 0 else MPI.PROC_NULL
 
 req = [comm.Isend(data, dest=tgt), comm.Irecv(buffer, source=src)]
 
-MPI.Request.waitall(req)  # Wait for all requests to complete
+MPI.Request.waitall(req)  # Wait for all requests to complete.
 ```
 
 ---
@@ -550,7 +549,7 @@ from mpi4py import MPI
 comm = MPI.COMM_WORLD
 rank = comm.Get_rank()
 
-# Split processes by color grouping based on rank
+# Split processes by color grouping based on rank.
 color = rank % 4
 local_comm = comm.Split(color)
 local_rank = local_comm.Get_rank()
@@ -590,7 +589,7 @@ The `Broadcast` or `Bcast` operation shares data from one process (the root) to 
 
 ---
 
-# Example: Broadcasting Data
+# Example: broadcasting data
 
 ```python
 from mpi4py import MPI
@@ -600,15 +599,15 @@ comm = MPI.COMM_WORLD
 rank = comm.Get_rank()
 
 if rank == 0:
-    py_data = {'key1': 0.0, 'key2': 11}  # Python dictionary
-    data = numpy.arange(8) / 10.0        # NumPy array
+    py_data = {'key1': 0.0, 'key2': 11}  # Python dictionary.
+    data = numpy.arange(8) / 10.0        # NumPy array.
 else:
     py_data = None
     data = numpy.zeros(8)
 
-# Broadcast Python dictionary
+# Broadcast Python dictionary.
 new_data = comm.bcast(py_data, root=0)
-# Broadcast NumPy array
+# Broadcast NumPy array.
 comm.Bcast(data, root=0)
 ```
 
@@ -622,7 +621,7 @@ The `Scatter` operation divides data from one process and distributes it among a
 
 ---
 
-# Example: Scattering Data
+# Example: scattering data
 
 ```python
 from mpi4py import MPI
@@ -633,17 +632,17 @@ rank = comm.Get_rank()
 size = comm.Get_size()
 
 if rank == 0:
-    py_data = list(range(size))  # List of integers
-    data = numpy.arange(size**2, dtype=float)  # NumPy array
+    py_data = list(range(size))  # List of integers.
+    data = numpy.arange(size**2, dtype=float)  # NumPy array.
 else:
     py_data = None
     data = None
 
-# Scatter list of integers
+# Scatter list of integers.
 new_data = comm.scatter(py_data, root=0)
-# Prepare a buffer for scattering NumPy array
+# Prepare a buffer for scattering NumPy array.
 buffer = numpy.empty(size, dtype=float)
-# Scatter NumPy array
+# Scatter NumPy array.
 comm.Scatter(data, buffer, root=0)
 ```
 
@@ -651,7 +650,7 @@ comm.Scatter(data, buffer, root=0)
 
 # Collective communication: many to one
 
-Collective communication routines in MPI not only facilitate data distribution but also collection from multiple processes to a single one. This discussion covers two primary MPI operations that enable such data collection: Gather and Reduce.
+Collective communication routines in MPI not only facilitate data distribution but also collection from multiple processes to a single one. This discussion covers two primary MPI operations that enable such data collection: `Gather` and `Reduce`.
 
 ## Gather operation
 
@@ -671,14 +670,14 @@ comm = MPI.COMM_WORLD
 rank = comm.Get_rank()
 size = comm.Get_size()
 
-# Each process generates data based on its rank
+# Each process generates data based on its rank.
 data = numpy.arange(10, dtype=float) * (rank + 1)
-# Buffer for gathering data at root
+# Buffer for gathering data at root.
 buffer = numpy.zeros(size * 10, dtype=float)
 
-# Gather single values from each process
+# Gather single values from each process.
 n = comm.gather(rank, root=0)
-# Gather arrays from each process
+# Gather arrays from each process.
 comm.Gather(data, buffer, root=0)
 ```
 
@@ -702,14 +701,14 @@ comm = MPI.COMM_WORLD
 rank = comm.Get_rank()
 size = comm.Get_size()
 
-# Data array influenced by rank
+# Data array influenced by rank.
 data = numpy.arange(10 * size, dtype=float) * (rank + 1)
-# Buffer for reduced data at root
+# Buffer for reduced data at root.
 buffer = numpy.zeros(size * 10, dtype=float)
 
-# Sum all ranks
+# Sum all ranks.
 n = comm.reduce(rank, op=MPI.SUM, root=0)
-# Sum all data arrays
+# Sum all data arrays.
 comm.Reduce(data, buffer, op=MPI.SUM, root=0)
 ```
 
@@ -739,11 +738,11 @@ comm = MPI.COMM_WORLD
 rank = comm.Get_rank()
 size = comm.Get_size()
 
-# Data array influenced by rank
+# Data array influenced by rank.
 data = numpy.arange(10 * size, dtype=float) * (rank + 1)
 buffer = numpy.empty(size * 10, dtype=float)
 
-# Allreduce operation
+# Allreduce operation.
 result = comm.allreduce(rank, op=MPI.SUM)
 comm.Allreduce(data, buffer, op=MPI.SUM)
 ```
@@ -768,12 +767,13 @@ comm = MPI.COMM_WORLD
 rank = comm.Get_rank()
 size = comm.Get_size()
 
-# Prepare data
+# Prepare data.
 py_data = list(range(size))
 data = numpy.arange(size**2, dtype=float)
 
-# Perform Alltoall
+# Perform Alltoall.
 new_data = comm.alltoall(py_data)
+
 buffer = numpy.zeros_like(data)
 comm.Alltoall(data, buffer)
 ```
@@ -782,7 +782,7 @@ comm.Alltoall(data, buffer)
 
 # Common mistakes in collective communication
 
-1. **Incorrect conditional Callc**: Collective operations should not be called conditionally within a subset of processes.
+1. **Incorrect conditional call**: Collective operations should not be called conditionally within a subset of processes.
    ```python
    if rank == 0:
        comm.bcast(...)
@@ -790,7 +790,6 @@ comm.Alltoall(data, buffer)
    This is incorrect because all processes must participate in the collective operation.
 2. **Assuming synchronization**: Collective operations do not guarantee that all processes exit the call simultaneously. They only ensure that it is safe to proceed with the data.
 3. **Buffer mismanagement**: Using the same buffer for both input and output can lead to unexpected results.
-
    ```python
    comm.Scatter(a, a, MPI.SUM)
    ```
@@ -828,12 +827,26 @@ GPUs, initially designed for rendering graphics, have evolved into powerful acce
 
 ---
 
-# Differences between CPUs and GPUs
+# Differences between CPUs and GPUs (1/2)
 
 ![](images/gpu_vs_cpu.png)
 
 - **Design philosophy**: CPUs are optimized for fast execution of a sequence of operations (a thread), handling a few dozen parallel threads. GPUs excel in managing thousands of concurrent threads, making them ideal for data-parallel tasks.
 - **Core allocation**: CPUs allocate more transistors for data caching and flow control, whereas GPUs dedicate more transistors to data processing.
+
+---
+
+# Differences between CPUs and GPUs (2/2)
+
+| CPU | GPU |
+| --- | --- |
+| General purpose | Highly specialized for parallelism |
+| Good for serial processing | Good for parallel processing |
+| Excellent for task parallelism | Excellent for data parallelism |
+
+- GPUs manage many threads in parallel.
+- The CPU controls workflow and data transfers.
+- Efficient GPU use requires problem decomposition into concurrently runnable parts.
 
 ---
 
@@ -849,15 +862,30 @@ Understanding GPU architecture and its programming model is essential for levera
 
 - **Host**: CPU
 - **Device**: GPU
-- **Kernels**: Functions executed on the GPU, launched by the host
+- **Kernels**: Functions executed on the GPU, launched by the host.
 
 ---
 
-# Numba for GPU Programming
+# Python on GPU
+
+Significant advancements have been made in Python for GPU utilization, though it is still evolving.
+
+For instance, CUDA is the programming model developed by NVIDIA for GPU programming.
+
+#### Libraries
+
+- **CuPy**: A NumPy/SciPy-compatible array library for GPU, easy to adopt for NumPy users.
+- **cuDF**: Part of the RAPIDS suite, cuDF manipulates data frames on GPU with a pandas-like API.
+- **PyCUDA**: Provides access to NVIDIA's CUDA programming API but requires knowledge of CUDA.
+- **Numba**: Allows JIT compilation of Python code for execution on the GPU, focusing primarily on Numba in this course.
+
+---
+
+# Numba for GPU programming
 
 [Numba](https://numba.pydata.org/) is a just-in-time compiler for Python that allows using GPU directly by compiling Python code into kernels that can run on the GPU. This simplifies GPU programming by abstracting away many of the complexities.
 
-#### Example: Using Numba for vector addition
+#### Example: using Numba for vector addition
 
 ```python
 from numba import vectorize, cuda
@@ -867,13 +895,51 @@ import numpy as np
 def add_vectors(a, b):
     return a + b
 
-# Create data
+# Create data.
 a = np.array([1, 2, 3], dtype=np.float32)
 b = np.array([4, 5, 6], dtype=np.float32)
 
-# Compute result
+# Compute result.
 c = add_vectors(a, b)
 ```
+
+---
+
+# Example: using Numba for matrix-matrix multiplication
+
+```python
+import numpy as np
+import numba
+
+#@numba.guvectorize(['(float64[:,:], float64[:,:], float64[:,:])'], '(m,l),(l,n)->(m,n)', target='cuda')
+@numba.guvectorize([numba.void(numba.float64[:,:], numba.float64[:,:], numba.float64[:,:])], '(m,l),(l,n)->(m,n)', target='cuda')
+def matmul_numba_gpu(A, B, C):
+    for i in range(A.shape[0]):
+        for j in range(B.shape[1]):
+            tmp = 0.0
+            for k in range(B.shape[0]):
+                tmp += A[i, k] * B[k, j]
+            C[i,j] += tmp
+```
+
+- **Complexity and power**: `@vectorize` is simpler and designed for element-by-element operations. `@guvectorize` is more powerful and flexible, designed for operations that span multiple elements and possibly multiple dimensions.
+- **Use cases**: Use `@vectorize` for simple, scalar output operations and `@guvectorize` for more complex array operations that might involve slicing, dicing, or reductions across dimensions.
+    
+---
+
+# Thread hierarchy
+
+![](images/MappingBlocksToSMs.png)
+
+---
+
+# GPU blocks
+
+When a kernel is launched, it generates tens of thousands of threads. These threads operate under the Single Instruction Multiple Data (SIMD) model, meaning they execute the same instructions but on different data.
+
+Threads are organized into thread blocks, which are then grouped into a grid. Each thread block is designed to operate independently and can be executed in any order, whether concurrently or sequentially. This flexible scheduling is possible across any of the Streaming Multiprocessors (SMs) available within a GPU.
+
+A GPU with more SMs can process the work faster compared to one with fewer SMs, as it can schedule more blocks simultaneously. However, thread blocks are constrained to a single SM and cannot be split between them, though multiple blocks can run concurrently within one SM. Threads within a block can exchange data through shared memory and synchronize explicitly. However, there is no interaction between different blocks. As blocks complete, new ones are initiated in the freed-up SMs, maintaining efficiency in execution.
 
 ---
 
