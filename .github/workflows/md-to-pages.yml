@@ -29,28 +29,28 @@ jobs:
       - name: Build slides HTML
         uses: docker://marpteam/marp-cli:latest
         with:
-          args: --bespoke.progress --theme style/custom.css --html -I slides/ -o slides/
+          args: --bespoke.progress --allow-local-files --theme style/custom.css --html -I slides/ -o slides/
         env:
           MARP_USER: root:root
 
       - name: Build slides PDF
         uses: docker://marpteam/marp-cli:latest
         with:
-          args: --bespoke.progress --theme style/custom.css --html -I slides/ -o slides/ --pdf --pdf-outlines
+          args: --bespoke.progress --allow-local-files --theme style/custom.css --html -I slides/ -o slides/ --pdf --pdf-outlines
         env:
           MARP_USER: root:root
 
       - name: Build practical sessions HTML
         uses: docker://marpteam/marp-cli:latest
         with:
-          args: --bespoke.progress --theme style/custom.css --html -I practical/ -o practical/
+          args: --bespoke.progress --allow-local-files --theme style/custom.css --html -I practical/ -o practical/
         env:
           MARP_USER: root:root
 
       - name: Build practical sessions PDF
         uses: docker://marpteam/marp-cli:latest
         with:
-          args: --bespoke.progress --theme style/custom.css --html -I practical/ -o practical/ --pdf --pdf-outlines
+          args: --bespoke.progress --allow-local-files --theme style/custom.css --html -I practical/ -o practical/ --pdf --pdf-outlines
         env:
           MARP_USER: root:root
 
