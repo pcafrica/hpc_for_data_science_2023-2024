@@ -28,7 +28,7 @@ _class: titlepage
 2. GPU computing
 3. Using HPC resources
 
-Part of these notes is re-adapted from [this lecture](https://enccs.github.io/hpda-python/) and [this lecture](https://aaltoscicomp.github.io/python-for-scicomp/) ([license](LICENSE_CC-BY-4.0.md)) and [this lecture](https://github.com/csc-training/hpc-python/tree/master) ([license](LICENSE_CC_BY-NC-SA-4.0.md)).
+Part of these notes is re-adapted from [this lecture](https://enccs.github.io/hpda-python/) and [this lecture](https://aaltoscicomp.github.io/python-for-scicomp/) ([license](LICENSE_CC-BY-4.0.md)) and [this lecture](https://github.com/csc-training/hpc-python/tree/master) ([license](LICENSE_CC-BY-NC-SA-4.0.md)).
 
 ---
 
