@@ -11,7 +11,7 @@ _class: titlepage
 ## A day in the life of a software developer
 <br>
 
-#### High Performance Computing for Data Science - SISSA, UniTS, 2023-2024
+#### High Performance Computing for Data Science - SISSA, 2023-2024
 
 ###### Pasquale Claudio Africa, Konstantin Karchev
 
