@@ -718,8 +718,6 @@ comm.Reduce(data, buffer, op=MPI.SUM, root=0)
 
 MPI also offers variations like `Scatterv` and `Gatherv` for operations involving variable amounts of data per process, enhancing flexibility in data distribution and collection.
 
----
-
 # Collective communication: many to many
 
 Collective communication in MPI not only involves one-to-one or many-to-one communications but also encompasses global interactions among all processes within a communicator. While these global communications are resource-intensive, they are crucial for certain parallel algorithms.
@@ -805,12 +803,6 @@ _class: titlepage
 
 ---
 
-# GPU computing
-
-Graphics Processing Units (GPUs) are becoming increasingly crucial in high-performance computing due to their ability to handle parallel computations more effectively than traditional CPUs. This article explores why and how to utilize GPUs for computing, focusing on their architecture, programming models, and appropriate use cases.
-
----
-
 # Moore's law and the shift to multicore processing
 
 ![w:900](images/microprocessor-trend-data.png)
@@ -824,6 +816,8 @@ Graphics Processing Units (GPUs) are becoming increasingly crucial in high-perfo
 ## Why use GPUs?
 
 GPUs, initially designed for rendering graphics, have evolved into powerful accelerators for general computational tasks. They offer significantly higher instruction throughput and memory bandwidth within a similar price and power envelope compared to CPUs.
+
+This section explores why and how to utilize GPUs for computing, focusing on their architecture, programming models, and appropriate use cases.
 
 ---
 
@@ -866,6 +860,58 @@ Understanding GPU architecture and its programming model is essential for levera
 
 ---
 
+# GPU structure (1/3)
+
+## 1. Streaming Multiprocessors (SMs)
+
+A GPU consists of several SMs, each being a core computational unit capable of executing multiple concurrent threads. The number of SMs can vary depending on the GPU model and architecture (for example, NVIDIA's different architectures like Volta, Turing, Ampere). Each SM includes:
+
+- **Core processors**: For actual data processing.
+- **Special functional units**: Like tensor cores for deep learning and ray tracing cores for graphics.
+- **Local memory**: Registers and shared memory accessible by all threads within the SM.
+- **Control units**: For managing thread execution.
+
+---
+
+# GPU structure (2/3)
+
+## 2. Blocks (or Thread Blocks)
+
+Each block, or thread block, is a group of threads that execute together on a single SM. Blocks are a key component of GPU programming models like CUDA and OpenCL. Here's why they are organized into blocks:
+
+- **Shared memory access**: Threads within the same block can share data through a shared memory, which is much faster than accessing global memory. This reduces memory latency and increases throughput.
+- **Synchronization**: Threads in the same block can synchronize their operations using barriers. This is useful for operations that depend on certain computations to be completed before proceeding.
+- **Resource allocation**: Managing resources at the block level helps in balancing load across SMs and optimizes the usage of the GPU’s computational resources.
+    
+---
+
+# GPU structure (3/3)
+
+## 3. Threads
+
+Threads are the smallest execution units in a GPU. Each thread runs a small set of instructions on its own set of data. The massive number of threads a GPU can handle allows for detailed and complex computations to be broken down into simpler, parallel tasks. Threads in GPUs are:
+
+- **Lightweight**: Designed to be extremely lightweight to allow thousands to run in parallel with minimal overhead.
+- **Interchangeable**: Since each thread performs the same operation on different data, they can be scheduled and executed in any order relative to other threads, making GPU scheduling very flexible.
+    
+---
+
+# Thread hierarchy
+
+![](images/MappingBlocksToSMs.png)
+
+---
+
+# Example
+
+The NVIDIA A100 is based on the Ampere architecture, providing enhancements over the Volta architecture used in the V100. Key specifications include:
+
+- **Streaming Multiprocessors (SMs)**: The A100 features 108 SMs in its most typical data center configuration.
+- **CUDA cores**: Each SM has 64 CUDA cores, totaling 6,912 CUDA cores.
+- **Tensor Cores**: The A100 has more powerful Tensor Cores with new features and there are 4 Tensor Cores per SM, totaling 432 Tensor Cores.
+
+---
+
 # Python on GPU
 
 Significant advancements have been made in Python for GPU utilization, though it is still evolving.
@@ -877,7 +923,7 @@ For instance, CUDA is the programming model developed by NVIDIA for GPU programm
 - **CuPy**: A NumPy/SciPy-compatible array library for GPU, easy to adopt for NumPy users.
 - **cuDF**: Part of the RAPIDS suite, cuDF manipulates data frames on GPU with a pandas-like API.
 - **PyCUDA**: Provides access to NVIDIA's CUDA programming API but requires knowledge of CUDA.
-- **Numba**: Allows JIT compilation of Python code for execution on the GPU, focusing primarily on Numba in this course.
+- **Numba**: Allows JIT compilation of Python code for execution on the GPU.
 
 ---
 
@@ -927,28 +973,14 @@ def matmul_numba_gpu(A, B, C):
     
 ---
 
-# Thread hierarchy
-
-![](images/MappingBlocksToSMs.png)
-
----
-
-# GPU blocks
-
-When a kernel is launched, it generates tens of thousands of threads. These threads operate under the Single Instruction Multiple Data (SIMD) model, meaning they execute the same instructions but on different data.
-
-Threads are organized into thread blocks, which are then grouped into a grid. Each thread block is designed to operate independently and can be executed in any order, whether concurrently or sequentially. This flexible scheduling is possible across any of the Streaming Multiprocessors (SMs) available within a GPU.
-
-A GPU with more SMs can process the work faster compared to one with fewer SMs, as it can schedule more blocks simultaneously. However, thread blocks are constrained to a single SM and cannot be split between them, though multiple blocks can run concurrently within one SM. Threads within a block can exchange data through shared memory and synchronize explicitly. However, there is no interaction between different blocks. As blocks complete, new ones are initiated in the freed-up SMs, maintaining efficiency in execution.
-
----
-
-# Practical considerations for GPU computing
+# Best practices for GPU computing
 
 While GPUs are powerful, they require careful management of memory and computation strategies to be used effectively:
 
 - **Memory transfers**: Data transfers between host and device should be minimized as they can become bottlenecks.
 - **Execution strategy**: Kernels should be designed to maximize the occupancy of the GPU to improve performance.
+- **Number of blocks per SM**: Typically, starting with 2 to 4 blocks per SM is a good baseline. Adjust based on your application's specific needs and profiling results.
+- **Warp efficiency**: Since a warp consists of 32 threads, it is generally efficient to choose a block size (i.e. number of threads per block) that is a multiple of 32 to avoid partially filled warps, which can result in wasted GPU resources.
 
 ---
 
@@ -960,20 +992,24 @@ _class: titlepage
 
 ---
 
-# SLURM tutorial
-
-SLURM (Simple Linux Utility for Resource Management) is a powerful cluster management and job scheduling system. In this tutorial, we will explore how to use SLURM for GPU computing, which is crucial for running computationally intensive tasks that benefit from GPU acceleration.
-
-## Prerequisites
-
-Before starting, ensure that:
-- You have access to a cluster managed with SLURM.
-- The cluster has nodes with GPUs installed.
-- You have basic knowledge of Linux command line and job scripting.
+![w:750](images/top500_1.png)
+...
+![w:750](images/top500_2.png)
 
 ---
 
-# Basic SLURM commands
+# Cineca Leonardo: system architecture
+
+![w:900](images/leonardo_architecture.jpg)
+
+
+---
+
+# SLURM tutorial
+
+SLURM (Simple Linux Utility for Resource Management) is a powerful cluster management and job scheduling system. In this tutorial, we will explore how to use SLURM for high performance computing, which is crucial for running computationally intensive tasks.
+
+## Basic SLURM commands
 
 Here's a brief overview of basic SLURM commands you'll need:
 
@@ -983,22 +1019,21 @@ Here's a brief overview of basic SLURM commands you'll need:
 - `scancel`: Cancel a job.
 - `srun`: Run a job interactively.
 
-## Writing a job script for GPU uxsage
+---
+
+# Writing a job script file
 
 A job script tells SLURM what resources your job will need and the commands to execute the job. Below is an example script that requests GPU resources and runs a Python script using GPUs.
 
----
-
-# Example job script
-
-Here’s a simple job script (`my_job.sh`) to run a Python script on a GPU:
+Here’s a simple job script (`my_job.sh`) to run a Python script using SLURM:
 
 ```bash
 #!/bin/bash
 #SBATCH --job-name=gpu-test           # Job name.
 #SBATCH --partition=gpu               # Partition (job queue).
-#SBATCH --gres=gpu:1                  # Number of GPUs per node.
-#SBATCH --mem=4G                      # Memory needed per node.
+#SBATCH --nodes=1                     # Number of nodes.
+#SBATCH --ntasks-per-node=1           # Number of parallel tasks per node.
+#SBATCH --mem=4G                      # Memory needed.
 #SBATCH --time=00-00:15:00            # Time limit days-hrs:min:sec.
 #SBATCH --output=gpu-test_%j.log      # Standard output and error log.
 
@@ -1016,7 +1051,8 @@ python my_gpu_script.py               # Run the Python script.
 - `#SBATCH`: These lines contain SLURM directives:
   - `--job-name`: Sets the name of the job.
   - `--partition`: Specifies the partition.
-  - `--gres`: Generic resources (gres) request; here, it requests GPUs.
+  - `--nodes`: Specifies the number of nodes.
+  - `--ntasks-per-node`: Specifies the number of parallel tasks per node.
   - `--mem`: Memory required.
   - `--time`: Maximum time after which the job will be terminated.
   - `--output`: Filename for the job output.
@@ -1035,21 +1071,17 @@ sbatch my_job.sh
 
 After submitting, you can monitor the job status with `squeue`.
 
-## Interactive GPU jobs
+## Interactive jobs
 
-For debugging or testing, you might want to run commands interactively on a GPU. You can request an interactive session with:
+For debugging or testing, you might want to run commands interactively on a shell. You can request an interactive session with:
 
 ```bash
-srun --partition=gpu --gres=gpu:1 --pty bash
+srun -N 1 -n 10 -p regular1 -t 01:00:00 --pty /bin/bash -i
 ```
 
 ---
 
-# Checking GPU usage
-
-While your job is running, you can check GPU utilization using `nvidia-smi`, which provides detailed statistics about GPU usage.
-
-## Tips for effective computing
+# Tips for effective computing
 
 1. **Efficient use of resources**: Ensure that your code is optimized for parallel/GPU usage. Not all tasks are suitable, particularly those that are not highly parallelizable.
 2. **Resource requests**: Request only the resources you need. Over-requesting leads to inefficiencies in cluster usage.
