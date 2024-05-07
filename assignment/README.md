@@ -27,7 +27,7 @@ For $k = 1, \dots$ until convergence:
 1. Each internal entry of $U$ is updated as the average of its four-point stencil's values:
 
 $$
-U^{(k+1)}(i, j) = \frac{1}{4}(U^{(k)}(i - 1, j) + U^{(k)}(i + 1, j) + U^{(k)}(i, j - 1) + U^{(k)}(i, j + 1)), \quad \forall i, j = 2, \dots, n - 1.
+U^{(k+1)}(i, j) = \frac{U^{(k)}(i - 1, j) + U^{(k)}(i + 1, j) + U^{(k)}(i, j - 1) + U^{(k)}(i, j + 1)}{4}, \quad \forall i, j = 2, \dots, n - 1.
 $$
 
 2. Continue iterating until the error $\left\lVert U^{(k+1)} - U^{(k)} \right\rVert$ is below a specified tolerance.
