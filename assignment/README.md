@@ -49,7 +49,7 @@ Implement the solver in Python using the `mpi4py` package:
 
 ## Deliverables
 Submit your solution as a `.zip` file containing:
-- Python source code using `mpi4py`.
+- Python source code using `mpi4py` and/or `cupy`.
 - Dependencies and environment requirements, if any, in a `requirements.txt` file.
 - A `README.md` providing setup and execution instructions.
 - Visual plots of the solution.
