@@ -17,3 +17,7 @@
     - Bonus: log your network structure to Tensorboard and/or visualise it.
     - Bonus: log histograms of the network weights during training to W&B.
     - Bonus: publish your super useful network on Huggingface.
+
+    Here are a few suggestions (TO BE UPDATED):
+    - MNIST, if you really want to cover your basics;
+    - ...
