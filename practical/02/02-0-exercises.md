@@ -5,10 +5,11 @@
 Use Stable Diffusion XL in a Google Colab session to generate an image from the following prompt[^tsds]
     > Students of [insert PhD] enjoying a lecture on [insert meme topic from your PhD] in a classroom with a marvelous view of the Mediterranean Sea. The teacher is wearing an over-the-top clown costume and juggling four-dimensional balls. Surrealist painting in the style of Salvador Dali.
 
-    [This notebook](https://colab.research.google.com/github/wandb/examples/blob/master/colabs/diffusers/sdxl-text-to-image.ipynb) can be a convenient starting point:
-    - Try to simplify it as much as you can in order to better understand what's going on. Skip the refinement.
-    - Explore what happens if you don't set `variant='fp16', torch_dtype=torch.float16` or, for some reason, you don't use the GPU.
-    - Bonus: benchmark/profile/inspect GPU memory and compute usage during inference.
+  [This notebook](https://colab.research.google.com/github/wandb/examples/blob/master/colabs/diffusers/sdxl-text-to-image.ipynb) can be a convenient starting point:
+
+  - Try to simplify it as much as you can in order to better understand what's going on. Skip the refinement.
+  - Explore what happens if you don't set `variant='fp16', torch_dtype=torch.float16` or, for some reason, you don't use the GPU.
+  - Bonus: benchmark/profile/inspect GPU memory and compute usage during inference.
 
 [^tsds]: suggested values for TSDS: "data science" and "PCA"
 
