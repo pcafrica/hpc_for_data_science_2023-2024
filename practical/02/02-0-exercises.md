@@ -3,7 +3,7 @@
 ## 1. Google Colab
 
 Use Stable Diffusion XL in a Google Colab session to generate an image from the following prompt[^tsds]
-    > Students of [insert PhD] enjoying a lecture on [insert meme topic from your PhD] in a classroom with a marvelous view of the Mediterranean Sea. The teacher is wearing an over-the-top clown costume and juggling four-dimensional balls. Surrealist painting in the style of Salvador Dali.
+  > Students of [insert PhD] enjoying a lecture on [insert meme topic from your PhD] in a classroom with a marvelous view of the Mediterranean Sea. The teacher is wearing an over-the-top clown costume and juggling four-dimensional balls. Surrealist painting in the style of Salvador Dali.
 
   [This notebook](https://colab.research.google.com/github/wandb/examples/blob/master/colabs/diffusers/sdxl-text-to-image.ipynb) can be a convenient starting point:
 
