@@ -39,5 +39,5 @@ Unless otherwise specified, all content here is licensed under a
 | Wed 24 Apr 2024 | 10:00 - 12:00 | 003  | Practical session: Look ma, I've published a package! [[Markdown](practical/01/01-package.md)] [[HTML](https://pcafrica.github.io/hpc_for_data_science_2023-2024/practical/01/01-package.html)] [[PDF](https://pcafrica.github.io/hpc_for_data_science_2023-2024/practical/01/01-package.pdf)] |
 | Mon 29 Apr 2024 | 14:00 - 16:00 | 003  | Fast and curious [[Markdown](slides/03/03-performance.md)] [[HTML](https://pcafrica.github.io/hpc_for_data_science_2023-2024/slides/03/03-performance.html)] [[PDF](https://pcafrica.github.io/hpc_for_data_science_2023-2024/slides/03/03-performance.pdf)] |
 | Tue 30 Apr 2024 | 14:00 - 16:00 | 003  | Parallel universes [[Markdown](slides/04/04-parallel.md)] [[HTML](https://pcafrica.github.io/hpc_for_data_science_2023-2024/slides/04/04-parallel.html)] [[PDF](https://pcafrica.github.io/hpc_for_data_science_2023-2024/slides/04/04-parallel.pdf)] |
-| Wed 08 May 2024 | 14:00 - 17:00 | 003  | Practical session (TBA) |
+| Wed 08 May 2024 | 14:00 - 17:00 | 003  | Practical session: Neural Networks and Notebooks [[Markdown](https://github.com/pcafrica/hpc_for_data_science_2023-2024/tree/main/practical/02)] |
 | Thu 09 May 2024 | 14:00 - 17:00 | 003  | Practical session (TBA) |
