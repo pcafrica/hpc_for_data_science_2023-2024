@@ -1,41 +1,4 @@
-# Neural Networks and Notebooks
-
-## Access to GPUs
-
-- Option(s) 1: the easy way.
-  - Your laptop or office workstation may already have a GPU (in this case, make sure you've installed the necessary [Nvidia drivers](https://www.nvidia.com/download/index.aspx)).
-  - Your boss may already have money to buy you one.
-  - Your department may already have [*shared* remote workstations](#workstations). These differ from a compute cluster by the looser access rules, i.e. the absence of a queuing system, which is expected to be replaced by considerate usage patterns and polite communication.
-
-  A setup like this will be adequate for development and testing and hopefully for some light production work.
-
-> [!IMPORTANT]
-> <a name="workstations"></a>TSDS members are requested to familiarise themselves with the available resources and the accompanying usage policy! described in [the dedicated wiki](https://git-scm.sissa.it/sissa-tsds/hpc-wiki/-/wikis/servers) (login required).
-
-- Option 2: [Google Colab](https://colab.research.google.com) used to be really great; nowadays, it's cool at best, but it still provides free intermittent access to a GPU, about 50 GB of scratch storage, and a decent software stack out of the box. If I didn't have option 1, or I wanted to easily set up a Notebook environment for interactive development/testing, or share some quick code snippets that only make use of publically installable libraries, I can see myself using Colab. For serious research, though, you'll probably need to pay.
-
-- Option 3: the big boys (HPC clusters). SISSA people have access to two tiers of compute clusters
-  - [Ulysses](https://www.itcs.sissa.it/services/computing/hpc) (see also the great ~~fanfic~~ [unofficial docs](https://ulysses.readthedocs.io/); and by "see" I mean, "you are requested to see") is SISSA's on-premises cluster.[^exhausts] It is *decent*. It is managed by slurm but has no budget limits. Its networking is disastrous:[^network] sometimes, it takes two minutes to `import torch` because the user's home directories are on a non-local partition...
-  - [Cineca](https://www.hpc.cineca.it/user-support/documentation/) (talk to your supervisor for access) is a collection of supercomputers. Specifically relevant is [Leonardo](https://wiki.u-gov.it/confluence/display/SCAIUS/UG3.2%3A+LEONARDO+UserGuide) with its ~3500 nodes with 4x A100-64GB GPUs each.[^madness]
-
-- Bonus option: commercial compute providers (aka compute clouds) are as abundant as silicon. See [e.g. this blog post](https://www.paperspace.com/gpu-cloud-comparison) for a comparison and links. They, as long as services like [Huggingface](https://huggingface.co/) may be good options for sharing your results interactively or letting others use your trained models.
-
-[^exhausts]: Who's in for a field trip to the giant heat exhausts/evaporators beyond the garden?
-
-[^network]: Stay in SISSA long enough, and you'll get accustomed to the gentle background hum of "Ulysses network problem" emails...
-
-[^madness]: I've seen users occupy *thousands* of GPUs at the same time...
-
-Once you've got your hands on the hardware, you can verify it is accessible via
-```shell
-nvidia-smi
-```
-which will list the available GPU(s), their parameters (chiefly memory) and utilisation (allocated/free memory and power usage, which is proportiotal to how much computation you're squeezing out of the GPU). It is a good habit to check `nvidia-smi` while your code is running to verify the GPU is being used and how much memory/compute you're using.[^system]
-
-[^system]: [Modern tools](#weights-and-biases) can log system information automatically behind the scenes.
-
-
-## PyTorch Lightning
+# PyTorch Lightning
 
 It's the 2020s, and you don't need to write your own training loop and/or zero your own gradients[^loop]. [(PyTorch) Lightning](https://lightning.ai/docs/pytorch/stable/) can do this for you.
 
@@ -61,7 +24,7 @@ Lightning automates the following procedure: you provide it with a model and a d
 
 Lightning has two major components that you should get right from the start, in order to enjoy all its benefits.
 
-### [Lightning Module](https://lightning.ai/docs/pytorch/stable/common/lightning_module.html)
+## [Lightning Module](https://lightning.ai/docs/pytorch/stable/common/lightning_module.html)
 
 Your neural network module should be a subclass of `LightningModule`. You then need the following methods
 - `__init__(self, ...)`: put whatever *hyperparameters* determine the structure of your network—e.g. number of layers, sizes of layers, type of non-linearity—as parameters to `__init__`. These will then be logged ([see here](https://lightning.ai/docs/pytorch/stable/common/lightning_module.html#save-hyperparameters)), so you can keep track of what configurations work best. Inside `__init__`, you should initialise your network components as usual.
@@ -91,7 +54,7 @@ Your neural network module should be a subclass of `LightningModule`. You then n
   validation_step = training_step
   ```
 
-### [Lightning Data](https://lightning.ai/docs/pytorch/stable/data/datamodule.html)
+## [Lightning Data](https://lightning.ai/docs/pytorch/stable/data/datamodule.html)
 
 While Lightning can work with ~any data loader[^torch-data], it's a good idea to structure your data in a [`LightningDataModule`](https://lightning.ai/docs/pytorch/stable/api/lightning.pytorch.core.LightningDataModule.html#lightning.pytorch.core.LightningDataModule): this will be of great help when moving your training to different machines or scaling it to multiple accelerators. A Lightning Data Module encapsulates:
 - data download: e.g. if your compute nodes don't have access to shared filesystems or you want to move stuff to faster memory;
@@ -103,7 +66,7 @@ While Lightning can work with ~any data loader[^torch-data], it's a good idea to
 
 [^torch-data]: The reader is strongly advised to familiarise themselves with the PyTorch documentation on data loading ([`torch.utils.data`](https://pytorch.org/docs/stable/data.html)). Curious/Advanced users should also consider the extension [`torchdata`](https://pytorch.org/data/beta/index.html).
 
-#### Data loading (for distributed training)
+### Data loading (for distributed training)
 
 > [!TIP]
 > Following best practices for distributed training will also improve your single-device experience!
@@ -122,7 +85,7 @@ Note that usually *all* the data should be loaded in each process, allowing Ligh
 > [!IMPORTANT]
 > Always set `prepare_data_per_node`, even if it's false, otherwise distributed initialisation may fail.
 
-### [Lightning Trainer](https://lightning.ai/docs/pytorch/stable/common/trainer.html)
+## [Lightning Trainer](https://lightning.ai/docs/pytorch/stable/common/trainer.html)
 
 A Lightning Trainer... um... trains... and much more! your model. It's the component that implements most of Lightning's automations. To train a [Lightning Module](#lightning-module) on some [Lightning Data](#lightning-data):
 ```python
@@ -131,7 +94,7 @@ trainer.fit(model, datamod)
 ```
 Now sit back and enjoy the show.
 
-#### Trainer flags
+### Trainer flags
 
 The [`...`](https://lightning.ai/docs/pytorch/stable/common/trainer.html#trainer-flags) above can be useful (and/or essential) configuration like
 - nothing, lol, Lighting will pick sensible defaults for everything;
@@ -155,7 +118,7 @@ The [`...`](https://lightning.ai/docs/pytorch/stable/common/trainer.html#trainer
 
 [^oom]: Usually, the batch itself is small, but evaluating a big network on it is what takes up the lot of memory.
 
-### [Callbacks](https://lightning.ai/docs/pytorch/stable/extensions/callbacks.html)
+## [Callbacks](https://lightning.ai/docs/pytorch/stable/extensions/callbacks.html)
 
 Lightning boasts giving the user the ability to patch into training at any point through an extensive [list of *hooks*](https://lightning.ai/docs/pytorch/stable/extensions/callbacks.html#hooks) that can be defined[^self] on a [`Callback`] subclass, instances of which can be given in a list to the [Trainer](https://lightning.ai/docs/pytorch/stable/api/lightning.pytorch.trainer.trainer.Trainer.html)'s [`callbacks` flag](https://lightning.ai/docs/pytorch/stable/common/trainer.html#callbacks).
 
@@ -179,7 +142,7 @@ Lightning also comes with a range of [builtin callbacks](https://lightning.ai/do
 - [`EarlyStopping`](https://lightning.ai/docs/pytorch/stable/api/lightning.pytorch.callbacks.EarlyStopping.html#lightning.pytorch.callbacks.EarlyStopping): for not wasting time once the validation loss stops improving;
 - [`LearningRateMonitor`](https://lightning.ai/docs/pytorch/stable/api/lightning.pytorch.callbacks.LearningRateMonitor.html#lightning.pytorch.callbacks.LearningRateMonitor): for monitoring a learning-rate schedule.
 
-#### [Checkpointing](https://lightning.ai/docs/pytorch/stable/common/checkpointing.html)
+### [Checkpointing](https://lightning.ai/docs/pytorch/stable/common/checkpointing.html)
 
 You should periodically save your progress while training in order to ensure:
 - you can resume in case something bad happens (e.g. you run out of computing time or your network hits its head and forgets everything it had learned...) or in case you eventually want to train more than you initially thought;
@@ -201,7 +164,7 @@ If you're wondering *which* checkpoint to load, after training, you can use the 
 
 [^top]: Fun story, by default, `mode` is `'min'`, so "top" is actually "bottom".
 
-#### [Logging](https://lightning.ai/docs/pytorch/stable/extensions/logging.html#logging)
+### [Logging](https://lightning.ai/docs/pytorch/stable/extensions/logging.html#logging)
 
 It's the 2020s, and you don't need to print out the progress of your training yourself!
 
@@ -222,7 +185,7 @@ from within [`validation_step`](#validation-step).
 
 From within callbacks, you can also "log" (save) non-numerical values like images, figures, weights and biases histograms, tables of network predictions, etc. by making use of custom loggers. The most famous one is
 
-##### [Tensorboard](https://www.tensorflow.org/tensorboard/)
+#### [Tensorboard](https://www.tensorflow.org/tensorboard/)
 
 [Tensorboard](https://pypi.org/project/tensorboard/) is a package that provides a web application for monitoring machine learning experiments. After installing it (e.g. via Pip), you can start a server via
 ```shell
@@ -234,7 +197,7 @@ Tensorboard was originally developed by PyTorch's rival, TensorFlow, but its `Su
 
 If you want to ["manually log scalar artifacts"](https://lightning.ai/docs/pytorch/stable/extensions/logging.html#manual-logging-non-scalar-artifacts) from callbacks, you can access the raw [`SummaryWriter`](https://pytorch.org/docs/stable/tensorboard.html#torch.utils.tensorboard.writer.SummaryWriter) through a model/trainer's [`.logger`](https://lightning.ai/docs/pytorch/stable/common/lightning_module.html#logger)[`.experiment`](https://lightning.ai/docs/pytorch/stable/api/lightning.pytorch.loggers.logger.html#lightning.pytorch.loggers.logger.DummyLogger.experiment) property and then use the relevant `.add_*` methods, as described in the documentation.
 
-##### [Weights and Biases](https://wandb.ai/)
+#### [Weights and Biases](https://wandb.ai/)
 
 Tensorboard is cool, but it has to be run locally. Wouldn't it be cooler, if you could monitor the progress of your machine learning experiment on your phone *from Barcola*!?
 

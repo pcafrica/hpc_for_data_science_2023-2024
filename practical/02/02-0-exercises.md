@@ -43,3 +43,13 @@ Here are a few suggestions:
   - Discover (Emulate) Newton's law from [NASA observations](https://ssd.jpl.nasa.gov/horizons/) with a graph neural network as in [this paper](https://arxiv.org/abs/2202.02306).
 
 - bonus suggestion: train a network to detect the number and location of broccoli in a photo using [this groundbreaking data set](https://lcas.lincoln.ac.uk/nextcloud/shared/agritech-datasets/broccoli/broccoli_datasets.html).
+
+## 3. Jupyter on a cluster
+
+Connect to a Jupyter notebook running on a compute node with a GPU.
+
+To make it more concrete, make a [histogram](https://matplotlib.org/stable/api/_as_gen/matplotlib.pyplot.hist.html) of the [log-determinants](https://pytorch.org/docs/stable/generated/torch.logdet.html#torch-logdet) of 5000x5000 matrices, randomly sampled from an [LKJCholesky](https://pytorch.org/docs/stable/distributions.html#lkjcholesky) distribution. Use a GPU for the determinants.
+
+This will also serve to verify you have installed everything properly.
+
+## 4. Lightning on a cluster
