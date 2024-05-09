@@ -45,12 +45,62 @@ Here are a few suggestions:
 
 - bonus suggestion: train a network to detect the number and location of broccoli in a photo using [this groundbreaking data set](https://lcas.lincoln.ac.uk/nextcloud/shared/agritech-datasets/broccoli/broccoli_datasets.html).
 
-## 3. Jupyter on a cluster
+## 3. Fun with Slurm
 
-Connect to a Jupyter notebook running on a compute node with a GPU.
+Play around with Slurm and get comfortable with its different command.
+In particular, practice:
+- `squeue` and its various options to show just a specific queue/user
+  - :memo: list pending jobs and the time they're expected to start
+- `srun` / `salloc`+`slogin` for interactive work (see also [the Jupyter task](#4-jupyter-on-a-cluster))
+- `scontrol`: verifying what resources were allocated to your (interactive) job.
+- `sbatch`:
+  - launch a multi-task job spread among many nodes (e.g. `--nodes 4 --ntasks-per-node 2`);
+  - from each task print out all defined environment variables:
+    - you can do that with `printenv` or from Python!
+  - redirect the output from each task into a different file named according to the task rank:
+    - see the docs on [IO Redirection](https://slurm.schedmd.com/srun.html).
+  - Do you see the environment variable =[`SLURM_NTASKS_PER_NODE`](https://slurm.schedmd.com/srun.html#OPT_SLURM_NTASKS_PER_NODE)?!
 
-To make it more concrete, make a [histogram](https://matplotlib.org/stable/api/_as_gen/matplotlib.pyplot.hist.html) of the [log-determinants](https://pytorch.org/docs/stable/generated/torch.logdet.html#torch-logdet) of 5000x5000 matrices, randomly sampled from an [LKJCholesky](https://pytorch.org/docs/stable/distributions.html#lkjcholesky) distribution. Use a GPU for the determinants.
 
-This will also serve to verify you have installed everything properly.
+## 4. Jupyter on a cluster
 
-## 4. Lightning on a cluster
+Connect to a Jupyter notebook running on a compute node with a GPU. This will also serve to verify you have installed your software properly.
+
+1. To make it more concrete, make a [histogram](https://matplotlib.org/stable/api/_as_gen/matplotlib.pyplot.hist.html) of the [log-determinants](https://pytorch.org/docs/stable/generated/torch.logdet.html#torch-logdet) of 5000x5000 matrices, randomly sampled from an [LKJCholesky](https://pytorch.org/docs/stable/distributions.html#lkjcholesky) distribution. Use a GPU for the determinants.
+
+2. Alternatively, run your training from [2.](#2-pytorch-lightning) but now on a cluster GPU.
+   - I guess you all figured out already that you can run and view [Tensorboard from within a Jupyter notebook](https://www.tensorflow.org/tensorboard/tensorboard_in_notebooks)[^tbnb].
+   - But can you set up Tensorboard and forward its ports, so that you can look at the training curves even if you're training from a script?
+
+[^tbnb]: This demonstration/tutorial is ridiculously overcomplicated. You just need to `%load_ext tensorboard` and then `%tensorboard`.
+
+> [!TIP]
+> Maybe you can get away with running Tensorboard on the *login* node, so you only need one port forwarded. However, most clusters have stricter rules than Ulysses and will kill processes on the login nodes after e.g. 10 mins. Should be enought though.
+
+
+## 5. Lightning on a cluster
+
+Scale up your analysis from [2.](#2-pytorch-lightning) to multiple nodes/GPUs. To achieve this, first read through [this](https://lightning.ai/docs/pytorch/stable/accelerators/gpu_intermediate.html#distributed-data-parallel) and [more importanty this](https://lightning.ai/docs/pytorch/stable/clouds/cluster_advanced.html) section of the Lightning docs that I'll now proceed to summarise:
+1. Transfer your code from a notebook into a `.py` script.
+2. Write a batch script that details the resources to be allocated.
+   - You need one task per GPU. It's advisable to take up all GPUs on a node to minimise network latency (especially on Ulysses...).
+     - You can ask for [`--exclusive`](https://slurm.schedmd.com/srun.html#OPT_exclusive) access to the nodes.
+   - Don't forget to ask for enough memory. If you're taking up whole nodes, you can ask for whole memories ([`--mem=0`](https://slurm.schedmd.com/srun.html#OPT_mem)).
+   - Launch your `.py` script using `srun SCRIPT.py`.
+     - Think about output redirection to different files (give the `--output` option to the *`srun`*).
+3. In your [`Trainer`](https://lightning.ai/docs/pytorch/stable/api/lightning.pytorch.trainer.trainer.Trainer.html#lightning.pytorch.trainer.trainer.Trainer), ask for
+   - `strategy='ddp', accelerator='gpu'` (the defaults),
+   - ```python
+     num_nodes = int(os.environ['SLURM_JOB_NUM_NODES']),
+     devices = int(os.environ['SLURM_NTASKS_PER_NODE'])
+     ```
+     The reason I suggest this way is that Lightning will crash if the values you specify here do not match the environment variables.
+4. Submit away and hope.
+5. Finally, figure out a way to monitor progress:
+   - Set up Tensorboard
+   - or simply `tail -f` the output file(s)[^output].
+   - Actually, have you thought about what happens with the things you [`LightningModule.log`](https://lightning.ai/docs/pytorch/stable/api/lightning.pytorch.core.LightningModule.html#lightning.pytorch.core.LightningModule.log_dict.params.sync_dist) from each task?!
+
+Deviate from this procedure at your own risk. 
+
+[^output]: Printing out the progress bar happens only from the rank-0 process. 

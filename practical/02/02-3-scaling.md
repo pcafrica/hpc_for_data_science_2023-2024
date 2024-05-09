@@ -103,3 +103,7 @@ Jupyter is a web application that runs a server on the machine you'd like to use
     - `ssh USER@CLUSTER -L LOCAL:localhost:TUNNEL -t ...` connects to the login node and forwards your `LOCAL` port to its `TUNNEL` port. Then, it executes whatever follows the `-t` *on the login node*:
     - `ssh NODE -L TUNNEL:localhost:REMOTE -t ...` connects to the compute node from the login and forwards its `TUNNEL` port to the compute node's `REMOTE` port. Then, it executes whatever follows the `-t` *on the compute node*:
     - `jupyter notebook --port=REMOTE` starts Jupyter on the `REMOTE` port.
+
+## Part 2: Distributed training with Pytorch Lightning
+
+See the exercise in `0-exercises`.
