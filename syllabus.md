@@ -1,5 +1,5 @@
 # Course syllabus
-## Advanced Programming 2023/2024
+## High Performance Computing for Data Science 2023/2024
 
 ### Instructor
 Dr. Pasquale Claudio Africa <<pafrica@sissa.it>>
